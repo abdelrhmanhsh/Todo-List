@@ -8,23 +8,48 @@
 import UIKit
 import CoreData
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, RefreshTableProtocol {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, RefreshTableProtocol {
     
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var searchBar: UISearchBar!
     var todos : [Todo]?
     var viewContext: NSManagedObjectContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
-
+        searchBar.delegate = self
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         viewContext = appDelegate.persistentContainer.viewContext
         
         fetchTodos()
+        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterTodos(searchText: searchText)
+    }
+    
+    func filterTodos(searchText: String) {
+        
+        if searchText == "" {
+            fetchTodos()
+            tableView.reloadData()
+        } else {
+            do {
+                let request = Todo.fetchRequest() as NSFetchRequest<Todo>
+                let predicate = NSPredicate(format: "name == %@", searchText)
+                request.predicate = predicate
+                todos = try viewContext.fetch(request)
+                tableView.reloadData()
+                
+            } catch {
+                print("Error fetching todos")
+            }
+        }
         
     }
     
@@ -44,14 +69,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let priority = todos?[indexPath.row].priority
         switch priority {
-            case "Low":
-                cell.imageView?.image = UIImage(named: "low.png")
-            case "Medium":
-                cell.imageView?.image = UIImage(named: "medium.png")
-            case "High":
-                cell.imageView?.image = UIImage(named: "high.png")
-            default:
-                cell.imageView?.image = UIImage(named: "low.png")
+        case "Low":
+            cell.imageView?.image = UIImage(named: "low.png")
+        case "Medium":
+            cell.imageView?.image = UIImage(named: "medium.png")
+        case "High":
+            cell.imageView?.image = UIImage(named: "high.png")
+        default:
+            cell.imageView?.image = UIImage(named: "low.png")
         }
         
         return cell
@@ -86,6 +111,60 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    @IBAction func filterDidChange(_ sender: UISegmentedControl) {
+        
+        switch sender.selectedSegmentIndex {
+            // get all
+        case 0:
+            fetchTodos()
+            tableView.reloadData()
+            // get high priority
+        case 1:
+            filterTodosPriority(filter: 1)
+            // get medium priority
+        case 2:
+            filterTodosPriority(filter: 2)
+            // get low priority
+        case 3:
+            filterTodosPriority(filter: 3)
+        default:
+            fetchTodos()
+            tableView.reloadData()
+        }
+    }
+    
+    func filterTodosPriority(filter: Int) {
+        
+        var predicateFilter = "Low"
+        
+        switch filter {
+        case 1:
+            predicateFilter = "High"
+        case 2:
+            predicateFilter = "Medium"
+        case 3:
+            predicateFilter = "Low"
+        default:
+            predicateFilter = "Low"
+        }
+        
+        if predicateFilter == "getAll" {
+            fetchTodos()
+        } else {
+            do {
+                let request = Todo.fetchRequest() as NSFetchRequest<Todo>
+                let predicate = NSPredicate(format: "priority == %@", predicateFilter)
+                request.predicate = predicate
+                todos = try viewContext.fetch(request)
+                tableView.reloadData()
+                
+            } catch {
+                print("Error fetching todos")
+            }
+        }
+        
+    }
+    
     func refreshTableAndApped(todo: Todo?) {
         todos?.append(todo!)
         tableView.reloadData()
@@ -96,7 +175,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -113,8 +192,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             detailsVC.homeVCDelegate = self
             
         }
-        
     }
     
-
 }

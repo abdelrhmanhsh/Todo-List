@@ -26,6 +26,8 @@ class DetailsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = todo?.name
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         viewContext = appDelegate.persistentContainer.viewContext
         

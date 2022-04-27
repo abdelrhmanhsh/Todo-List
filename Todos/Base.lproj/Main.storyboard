@@ -16,9 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9Q4-ZL-fyf">
-                                <rect key="frame" x="0.0" y="176" width="414" height="720"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9Q4-ZL-fyf">
+                                <rect key="frame" x="0.0" y="225" width="414" height="671"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="kuQ-Ww-WZB">
@@ -34,9 +33,16 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4Gp-b6-UM1">
-                                <rect key="frame" x="20" y="138" width="374" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="NDM-pp-IWN">
+                                <rect key="frame" x="0.0" y="88" width="414" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4Gp-b6-UM1">
+                                <rect key="frame" x="16" y="147" width="382" height="32"/>
                                 <segments>
                                     <segment title="All"/>
                                     <segment title="High"/>
@@ -47,18 +53,41 @@
                                     <action selector="filterDidChange:" destination="ern-GT-Upv" eventType="valueChanged" id="fpS-cJ-zVp"/>
                                 </connections>
                             </segmentedControl>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NDM-pp-IWN">
-                                <rect key="frame" x="0.0" y="81" width="414" height="51"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <scopeButtonTitles>
-                                    <string>Title</string>
-                                    <string>Title</string>
-                                </scopeButtonTitles>
-                            </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sort Alphabetically" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UsB-Fz-yuK">
+                                <rect key="frame" x="16" y="186" width="143.5" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BBG-Nl-IZc">
+                                <rect key="frame" x="341" y="186" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switchChanged:" destination="ern-GT-Upv" eventType="valueChanged" id="jpb-HG-cYm"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bQz-NE-N3I"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="9Q4-ZL-fyf" secondAttribute="bottom" id="3MZ-yH-811"/>
+                            <constraint firstItem="bQz-NE-N3I" firstAttribute="trailing" secondItem="BBG-Nl-IZc" secondAttribute="trailing" constant="24" id="6bo-hO-Wqw"/>
+                            <constraint firstItem="NDM-pp-IWN" firstAttribute="trailing" secondItem="bQz-NE-N3I" secondAttribute="trailing" id="7oD-tt-Rff"/>
+                            <constraint firstItem="4Gp-b6-UM1" firstAttribute="top" secondItem="NDM-pp-IWN" secondAttribute="bottom" constant="8" id="E22-X8-CXY"/>
+                            <constraint firstItem="4Gp-b6-UM1" firstAttribute="centerX" secondItem="eWh-R1-mTi" secondAttribute="centerX" id="ESd-YE-q9c"/>
+                            <constraint firstItem="BBG-Nl-IZc" firstAttribute="top" secondItem="4Gp-b6-UM1" secondAttribute="bottom" constant="8" id="Eep-Vb-7Cw"/>
+                            <constraint firstItem="9Q4-ZL-fyf" firstAttribute="trailing" secondItem="bQz-NE-N3I" secondAttribute="trailing" id="GQM-Q0-KfA"/>
+                            <constraint firstItem="NDM-pp-IWN" firstAttribute="centerX" secondItem="eWh-R1-mTi" secondAttribute="centerX" id="OO3-k5-b04"/>
+                            <constraint firstItem="9Q4-ZL-fyf" firstAttribute="leading" secondItem="bQz-NE-N3I" secondAttribute="leading" id="Vm3-Dk-Cdw"/>
+                            <constraint firstItem="UsB-Fz-yuK" firstAttribute="leading" secondItem="bQz-NE-N3I" secondAttribute="leading" constant="16" id="XTt-hP-ajz"/>
+                            <constraint firstItem="NDM-pp-IWN" firstAttribute="leading" secondItem="bQz-NE-N3I" secondAttribute="leading" id="gcx-HX-2uM"/>
+                            <constraint firstItem="bQz-NE-N3I" firstAttribute="trailing" secondItem="4Gp-b6-UM1" secondAttribute="trailing" constant="16" id="iVC-Fo-dzf"/>
+                            <constraint firstItem="4Gp-b6-UM1" firstAttribute="leading" secondItem="bQz-NE-N3I" secondAttribute="leading" constant="16" id="jl5-Ug-RGU"/>
+                            <constraint firstItem="UsB-Fz-yuK" firstAttribute="top" secondItem="BBG-Nl-IZc" secondAttribute="top" id="pvg-Bc-i3f"/>
+                            <constraint firstItem="9Q4-ZL-fyf" firstAttribute="centerX" secondItem="eWh-R1-mTi" secondAttribute="centerX" id="qNO-1v-C2e"/>
+                            <constraint firstItem="9Q4-ZL-fyf" firstAttribute="top" secondItem="BBG-Nl-IZc" secondAttribute="bottom" constant="8" id="uqb-xx-ivb"/>
+                            <constraint firstItem="UsB-Fz-yuK" firstAttribute="bottom" secondItem="BBG-Nl-IZc" secondAttribute="bottom" id="wlv-nC-ID9"/>
+                            <constraint firstItem="NDM-pp-IWN" firstAttribute="top" secondItem="bQz-NE-N3I" secondAttribute="top" id="xew-cy-HOS"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Todos" id="fHq-2K-tNx">
                         <barButtonItem key="rightBarButtonItem" title="Add" id="t2k-Xc-G3Q">
@@ -84,25 +113,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EUq-JC-3uX">
-                                <rect key="frame" x="35" y="158" width="345" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EUq-JC-3uX">
+                                <rect key="frame" x="24" y="152" width="366" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sir-6U-9SP">
-                                <rect key="frame" x="35" y="232" width="345" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sir-6U-9SP">
+                                <rect key="frame" x="24" y="210" width="366" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6JL-oA-U5M">
-                                <rect key="frame" x="35" y="319" width="359" height="162"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6JL-oA-U5M">
+                                <rect key="frame" x="24" y="268" width="366" height="216"/>
                             </pickerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Cgh-sr-GPF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6JL-oA-U5M" firstAttribute="centerX" secondItem="B8l-VU-lek" secondAttribute="centerX" id="7tE-Bk-hUS"/>
+                            <constraint firstItem="EUq-JC-3uX" firstAttribute="centerX" secondItem="B8l-VU-lek" secondAttribute="centerX" id="BZb-14-jdb"/>
+                            <constraint firstItem="EUq-JC-3uX" firstAttribute="leading" secondItem="Cgh-sr-GPF" secondAttribute="leading" constant="24" id="GaP-Ka-rLz"/>
+                            <constraint firstItem="Cgh-sr-GPF" firstAttribute="trailing" secondItem="Sir-6U-9SP" secondAttribute="trailing" constant="24" id="HTJ-jc-tHY"/>
+                            <constraint firstItem="Sir-6U-9SP" firstAttribute="centerX" secondItem="B8l-VU-lek" secondAttribute="centerX" id="KeR-Ay-KW3"/>
+                            <constraint firstItem="6JL-oA-U5M" firstAttribute="leading" secondItem="Cgh-sr-GPF" secondAttribute="leading" constant="24" id="Khm-EO-wlC"/>
+                            <constraint firstItem="Cgh-sr-GPF" firstAttribute="trailing" secondItem="6JL-oA-U5M" secondAttribute="trailing" constant="24" id="QwD-0F-KCB"/>
+                            <constraint firstItem="EUq-JC-3uX" firstAttribute="top" secondItem="Cgh-sr-GPF" secondAttribute="top" constant="64" id="XO2-V7-dTx"/>
+                            <constraint firstItem="6JL-oA-U5M" firstAttribute="top" secondItem="Sir-6U-9SP" secondAttribute="bottom" constant="24" id="hrn-8o-5KL"/>
+                            <constraint firstItem="Sir-6U-9SP" firstAttribute="top" secondItem="EUq-JC-3uX" secondAttribute="bottom" constant="24" id="waB-dr-Wi5"/>
+                            <constraint firstItem="Cgh-sr-GPF" firstAttribute="trailing" secondItem="EUq-JC-3uX" secondAttribute="trailing" constant="24" id="xld-gc-f9j"/>
+                            <constraint firstItem="Sir-6U-9SP" firstAttribute="leading" secondItem="Cgh-sr-GPF" secondAttribute="leading" constant="24" id="yjC-nX-MRU"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add Todo" id="GbW-8h-wJw">
                         <barButtonItem key="rightBarButtonItem" title="Save" id="YfT-Q2-eDD">
@@ -129,27 +169,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Todo Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5c-vt-vmx">
-                                <rect key="frame" x="38" y="167" width="339" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Todo Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5c-vt-vmx">
+                                <rect key="frame" x="24" y="152" width="366" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Todo Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Xg-F5-H96">
-                                <rect key="frame" x="38" y="246" width="339" height="200"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Todo Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Xg-F5-H96">
+                                <rect key="frame" x="24" y="204.5" width="366" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GiZ-UT-XVf">
-                                <rect key="frame" x="20" y="530" width="359" height="162"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GiZ-UT-XVf">
+                                <rect key="frame" x="24" y="257" width="366" height="216"/>
                             </pickerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="7Xg-F5-H96" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="41e-IJ-wmj"/>
+                            <constraint firstItem="h5c-vt-vmx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ChK-Kp-hKy"/>
+                            <constraint firstItem="GiZ-UT-XVf" firstAttribute="top" secondItem="7Xg-F5-H96" secondAttribute="bottom" constant="32" id="Ect-cc-FRP"/>
+                            <constraint firstItem="h5c-vt-vmx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="FTU-m4-Tgz"/>
+                            <constraint firstItem="h5c-vt-vmx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="64" id="II5-Xm-O9R"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="h5c-vt-vmx" secondAttribute="trailing" constant="24" id="KpU-ej-uCd"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GiZ-UT-XVf" secondAttribute="trailing" constant="24" id="LDt-Yz-Ukw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7Xg-F5-H96" secondAttribute="trailing" constant="24" id="Te5-UK-Ica"/>
+                            <constraint firstItem="GiZ-UT-XVf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="XIp-94-iI1"/>
+                            <constraint firstItem="7Xg-F5-H96" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="aQ4-Rv-jkJ"/>
+                            <constraint firstItem="GiZ-UT-XVf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="iAd-9y-qVe"/>
+                            <constraint firstItem="7Xg-F5-H96" firstAttribute="top" secondItem="h5c-vt-vmx" secondAttribute="bottom" constant="32" id="rZt-e8-QeJ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="Tis-j5-k1k">
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="nMp-78-JxV">
@@ -176,25 +227,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YuW-F6-iV4">
-                                <rect key="frame" x="28" y="184" width="359" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YuW-F6-iV4">
+                                <rect key="frame" x="24" y="152" width="366" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s3o-sC-jTH">
-                                <rect key="frame" x="28" y="258" width="359" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s3o-sC-jTH">
+                                <rect key="frame" x="24" y="218" width="366" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ANw-Uc-ZlX">
-                                <rect key="frame" x="28" y="377" width="359" height="162"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ANw-Uc-ZlX">
+                                <rect key="frame" x="24" y="284" width="366" height="216"/>
                             </pickerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EtI-YT-NTH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="YuW-F6-iV4" firstAttribute="centerX" secondItem="nNj-Jy-xdq" secondAttribute="centerX" id="3oF-Fr-Ftv"/>
+                            <constraint firstItem="ANw-Uc-ZlX" firstAttribute="leading" secondItem="EtI-YT-NTH" secondAttribute="leading" constant="24" id="CQ5-fB-4VT"/>
+                            <constraint firstItem="EtI-YT-NTH" firstAttribute="trailing" secondItem="s3o-sC-jTH" secondAttribute="trailing" constant="24" id="NBm-s1-ulT"/>
+                            <constraint firstItem="YuW-F6-iV4" firstAttribute="leading" secondItem="EtI-YT-NTH" secondAttribute="leading" constant="24" id="V4C-y2-iSE"/>
+                            <constraint firstItem="ANw-Uc-ZlX" firstAttribute="centerX" secondItem="nNj-Jy-xdq" secondAttribute="centerX" id="eEm-aW-njd"/>
+                            <constraint firstItem="EtI-YT-NTH" firstAttribute="trailing" secondItem="ANw-Uc-ZlX" secondAttribute="trailing" constant="24" id="le3-8P-wJm"/>
+                            <constraint firstItem="s3o-sC-jTH" firstAttribute="leading" secondItem="EtI-YT-NTH" secondAttribute="leading" constant="24" id="nfe-pZ-hkv"/>
+                            <constraint firstItem="s3o-sC-jTH" firstAttribute="centerX" secondItem="nNj-Jy-xdq" secondAttribute="centerX" id="oH3-Z2-drO"/>
+                            <constraint firstItem="ANw-Uc-ZlX" firstAttribute="top" secondItem="s3o-sC-jTH" secondAttribute="bottom" constant="32" id="pFx-1Y-rJj"/>
+                            <constraint firstItem="s3o-sC-jTH" firstAttribute="top" secondItem="YuW-F6-iV4" secondAttribute="bottom" constant="32" id="rlb-B0-eMA"/>
+                            <constraint firstItem="EtI-YT-NTH" firstAttribute="trailing" secondItem="YuW-F6-iV4" secondAttribute="trailing" constant="24" id="tVu-vz-a7D"/>
+                            <constraint firstItem="YuW-F6-iV4" firstAttribute="top" secondItem="EtI-YT-NTH" secondAttribute="top" constant="64" id="u4e-fQ-eU7"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Edit" id="fYm-Uw-3Ae">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="4yg-nC-FIA">

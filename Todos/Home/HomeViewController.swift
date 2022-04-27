@@ -194,4 +194,30 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    func fetchTodosWithAlphabeticSort(){
+        do {
+            
+            let sortRequest = Todo.fetchRequest() as NSFetchRequest<Todo>
+            let alphabeticSort = NSSortDescriptor(key: "name", ascending: true)
+            sortRequest.sortDescriptors = [alphabeticSort]
+            
+            todos = try viewContext.fetch(sortRequest)
+        } catch {
+            print("Error fetching todos")
+        }
+    }
+    
+    @IBAction func switchChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            // Sort Alphabetically
+            print("Switch on")
+            fetchTodosWithAlphabeticSort()
+            tableView.reloadData()
+            
+        } else {
+            print("Switch off")
+            fetchTodos()
+            tableView.reloadData()
+        }
+    }
 }

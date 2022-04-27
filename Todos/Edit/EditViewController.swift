@@ -73,6 +73,13 @@ class EditViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         todo?.details = descriptionInput.text
         todo?.priority = priorityPicked
         
+        do {
+            try self.viewContext.save()
+        }
+        catch {
+            print("Error updating todo")
+        }
+        
         detailsVCDelegate?.updateTodo(todo: todo)
         navigationController?.popViewController(animated: true)
     }

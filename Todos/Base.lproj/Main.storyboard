@@ -97,7 +97,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="filterSegmentControl" destination="4Gp-b6-UM1" id="9vv-oT-AWG"/>
                         <outlet property="searchBar" destination="NDM-pp-IWN" id="t52-KI-pZv"/>
+                        <outlet property="sortSwitch" destination="BBG-Nl-IZc" id="iRu-qG-X6j"/>
                         <outlet property="tableView" destination="9Q4-ZL-fyf" id="AFx-Hf-7mJ"/>
                     </connections>
                 </viewController>

@@ -12,8 +12,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var filterSegmentControl: UISegmentedControl!
+    @IBOutlet weak var sortSwitch: UISwitch!
     var todos : [Todo]?
     var viewContext: NSManagedObjectContext!
+    
+    let userDefauls = UserDefaultManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,31 +29,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         viewContext = appDelegate.persistentContainer.viewContext
         
-        fetchTodos()
-        
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filterTodos(searchText: searchText)
-    }
-    
-    func filterTodos(searchText: String) {
-        
-        if searchText == "" {
-            fetchTodos()
-            tableView.reloadData()
-        } else {
-            do {
-                let request = Todo.fetchRequest() as NSFetchRequest<Todo>
-                let predicate = NSPredicate(format: "name == %@", searchText)
-                request.predicate = predicate
-                todos = try viewContext.fetch(request)
-                tableView.reloadData()
-                
-            } catch {
-                print("Error fetching todos")
-            }
-        }
+        getTodos()
         
     }
     
@@ -103,7 +83,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    func fetchTodos(){
+    func getTodos(){
+        
+        // filter todos
+        let filter = userDefauls.getFilter()
+        filterSegmentControl.selectedSegmentIndex = filter
+        
+        // sort todos
+        let isSort = userDefauls.getIfSort()
+        sortSwitch.isOn = isSort
+        
+        fetchTodos(filter: filter, sort: isSort)
+        
+    }
+    
+    func fetchAllTodos(){
         do {
             todos = try viewContext.fetch(Todo.fetchRequest())
         } catch {
@@ -111,49 +105,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    @IBAction func filterDidChange(_ sender: UISegmentedControl) {
+    func filterTodos(searchText: String) {
         
-        switch sender.selectedSegmentIndex {
-            // get all
-        case 0:
-            fetchTodos()
+        if searchText == "" {
+            fetchAllTodos()
             tableView.reloadData()
-            // get high priority
-        case 1:
-            filterTodosPriority(filter: 1)
-            // get medium priority
-        case 2:
-            filterTodosPriority(filter: 2)
-            // get low priority
-        case 3:
-            filterTodosPriority(filter: 3)
-        default:
-            fetchTodos()
-            tableView.reloadData()
-        }
-    }
-    
-    func filterTodosPriority(filter: Int) {
-        
-        var predicateFilter = "Low"
-        
-        switch filter {
-        case 1:
-            predicateFilter = "High"
-        case 2:
-            predicateFilter = "Medium"
-        case 3:
-            predicateFilter = "Low"
-        default:
-            predicateFilter = "Low"
-        }
-        
-        if predicateFilter == "getAll" {
-            fetchTodos()
         } else {
             do {
                 let request = Todo.fetchRequest() as NSFetchRequest<Todo>
-                let predicate = NSPredicate(format: "priority == %@", predicateFilter)
+                let predicate = NSPredicate(format: "name == %@", searchText)
                 request.predicate = predicate
                 todos = try viewContext.fetch(request)
                 tableView.reloadData()
@@ -165,13 +125,81 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    func refreshTableAndApped(todo: Todo?) {
-        todos?.append(todo!)
-        tableView.reloadData()
+    @IBAction func filterDidChange(_ sender: UISegmentedControl) {
+        
+        switch sender.selectedSegmentIndex {
+            
+        case 0: // get all
+            userDefauls.saveFilter(filter: 0)
+            
+        case 1: // get high priority
+            userDefauls.saveFilter(filter: 1)
+            
+        case 2: // get medium priority
+            userDefauls.saveFilter(filter: 2)
+            
+        case 3: // get low priority
+            userDefauls.saveFilter(filter: 3)
+            
+        default:
+            userDefauls.saveFilter(filter: 0)
+        }
+        getTodos()
     }
     
-    func refreshTable() {
-        tableView.reloadData()
+    func fetchTodos(filter: Int, sort: Bool){
+        
+        var predicateFilter = "All"
+        
+        switch filter {
+        case 0:
+            predicateFilter = "All"
+        case 1:
+            predicateFilter = "High"
+        case 2:
+            predicateFilter = "Medium"
+        case 3:
+            predicateFilter = "Low"
+        default:
+            predicateFilter = "All"
+        }
+        
+        do {
+            
+            let request = Todo.fetchRequest() as NSFetchRequest<Todo>
+            if predicateFilter == "All" {
+                todos = try viewContext.fetch(Todo.fetchRequest())
+                tableView.reloadData()
+            } else {
+                let predicate = NSPredicate(format: "priority == %@", predicateFilter)
+                request.predicate = predicate
+            }
+            
+            let alphabeticSort = NSSortDescriptor(key: "name", ascending: sort)
+            request.sortDescriptors = [alphabeticSort]
+            
+            todos = try viewContext.fetch(request)
+            tableView.reloadData()
+            
+        } catch {
+            print("Error fetching todos")
+        }
+    }
+    
+    @IBAction func switchChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            // Sort Alphabetically
+            userDefauls.saveIfSort(sort: true)
+            
+        } else {
+            userDefauls.saveIfSort(sort: false)
+        }
+        
+        getTodos()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterTodos(searchText: searchText)
     }
     
     // MARK: - Navigation
@@ -194,30 +222,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    func fetchTodosWithAlphabeticSort(){
-        do {
-            
-            let sortRequest = Todo.fetchRequest() as NSFetchRequest<Todo>
-            let alphabeticSort = NSSortDescriptor(key: "name", ascending: true)
-            sortRequest.sortDescriptors = [alphabeticSort]
-            
-            todos = try viewContext.fetch(sortRequest)
-        } catch {
-            print("Error fetching todos")
-        }
+    // MARK: Delegates
+    
+    func refreshTableAndApped(todo: Todo?) {
+        todos?.append(todo!)
+        tableView.reloadData()
     }
     
-    @IBAction func switchChanged(_ sender: UISwitch) {
-        if sender.isOn {
-            // Sort Alphabetically
-            print("Switch on")
-            fetchTodosWithAlphabeticSort()
-            tableView.reloadData()
-            
-        } else {
-            print("Switch off")
-            fetchTodos()
-            tableView.reloadData()
-        }
+    func refreshTable() {
+        tableView.reloadData()
     }
 }

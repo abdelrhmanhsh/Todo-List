@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC1085CD281C0A9F00F267B8 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1085CC281C0A9F00F267B8 /* UserDefaultManager.swift */; };
 		BC5FC4972817347E001F1D71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5FC4962817347E001F1D71 /* AppDelegate.swift */; };
 		BC5FC4992817347E001F1D71 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5FC4982817347E001F1D71 /* SceneDelegate.swift */; };
 		BC5FC49B2817347E001F1D71 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5FC49A2817347E001F1D71 /* DetailsViewController.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC1085CC281C0A9F00F267B8 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		BC5FC4932817347E001F1D71 /* Todos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC5FC4962817347E001F1D71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC5FC4982817347E001F1D71 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +55,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC1085CB281C0A8800F267B8 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BC1085CC281C0A9F00F267B8 /* UserDefaultManager.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		BC5FC48A2817347E001F1D71 = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +82,7 @@
 		BC5FC4952817347E001F1D71 /* Todos */ = {
 			isa = PBXGroup;
 			children = (
+				BC1085CB281C0A8800F267B8 /* Utils */,
 				BC5FC4B72817384A001F1D71 /* Model */,
 				BC5FC4B4281736D3001F1D71 /* Edit */,
 				BC5FC4B32817369F001F1D71 /* Details */,
@@ -208,6 +219,7 @@
 				BC5FC4992817347E001F1D71 /* SceneDelegate.swift in Sources */,
 				BC5FC4B228173699001F1D71 /* AddTodoViewController.swift in Sources */,
 				BC5FC4BD281739B9001F1D71 /* HomeViewController.swift in Sources */,
+				BC1085CD281C0A9F00F267B8 /* UserDefaultManager.swift in Sources */,
 				BC5FC4BA281738AC001F1D71 /* Todo+CoreDataClass.swift in Sources */,
 				BC5FC4A12817347E001F1D71 /* Todos.xcdatamodeld in Sources */,
 				BC5FC4B6281736DF001F1D71 /* EditViewController.swift in Sources */,

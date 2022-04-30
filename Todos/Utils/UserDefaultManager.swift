@@ -40,4 +40,32 @@ class UserDefaultManager {
         userDefaults?.setValue(sort, forKey: "sort")
     }
     
+    func getIfUserLoggedIn() -> Bool{
+
+        if let loggedIn = userDefaults?.value(forKey: "loggedIn") as? Bool {
+            return loggedIn
+        } else {
+            return false
+        }
+
+    }
+
+    func saveUserLoggedIn(loggedIn: Bool) {
+        userDefaults?.setValue(loggedIn, forKey: "loggedIn")
+    }
+    
+    func getUserId() -> String{
+
+        if let userId = userDefaults?.value(forKey: "userId") as? String {
+            return userId
+        } else {
+            return ""
+        }
+
+    }
+
+    func saveUserId(userId: String) {
+        userDefaults?.setValue(userId, forKey: "userId")
+    }
+    
 }

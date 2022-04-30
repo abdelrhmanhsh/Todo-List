@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import FirebaseAuth
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, RefreshTableProtocol {
     
@@ -30,6 +31,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         viewContext = appDelegate.persistentContainer.viewContext
         
         getTodos()
+        
+        self.navigationItem.hidesBackButton = true
         
     }
     
@@ -200,6 +203,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterTodos(searchText: searchText)
+    }
+   
+    @IBAction func btnLogout(_ sender: UIBarButtonItem) {
+        
+        do {
+            try Auth.auth().signOut()
+            userDefauls.saveUserLoggedIn(loggedIn: false)
+            navigationController?.popViewController(animated: true)
+        } catch {
+            print("Error logging out")
+        }
+        
     }
     
     // MARK: - Navigation
